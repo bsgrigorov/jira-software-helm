@@ -1,0 +1,11 @@
+**/.settings
+**/.idea/*
+**/bin/*
+**/build/*
+**/target
+**/out/*
+*.iml
+**/*.iml
+**/.DS_Store
+**/.idea_backup
+

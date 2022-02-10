@@ -1,0 +1,26 @@
+apiVersion: v1
+appVersion: 8.9.1
+dependencies:
+- condition: postgresql.enabled
+  name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  tags:
+  - postgres
+  version: "8.1.0"
+description: Issue tracker and agile project management platform
+home: https://hub.docker.com/r/atlassian/jira-software
+icon: https://mox.sh/assets/images/jira-logo.png
+keywords:
+- jira
+- agile
+- project management
+- issue tracking
+- bug tracking
+- application
+name: jira-software
+sources:
+- https://helm.sh
+- https://helm.mox.sh
+- https://hub.docker.com/r/atlassian/jira-software
+type: application
+version: 0.0.1

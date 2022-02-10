@@ -1,0 +1,35 @@
+ingress:
+  ## Set to true to enable ingress record generation
+  enabled: true
+  tlsSecretName: "jira1.{{ .Values.domain }}"
+  hostname: "jira1.{{ .Values.domain }}"
+
+domain: black.eurekacloud.io
+
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 0.25
+  limits:
+    memory: 4Gi
+    cpu: 0.5
+
+persistence:
+  size: 20Gi
+  storageClass:  # set to default
+  volumeName:
+
+postgresql:
+  ## Whether to deploy a postgres server to satisfy the applications database requirements.
+  enabled: true
+  fullnameOverride: jira-db
+
+databaseConnection:
+  host: jira-db
+  user: postgres
+  # password is password for test instance
+  password: password
+
+global:
+  postgresql:
+    postgresqlPassword: password

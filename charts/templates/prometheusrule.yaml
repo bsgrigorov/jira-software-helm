@@ -1,0 +1,26 @@
+{{- if .Values.prometheusRule.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ template "jira-software.fullname" . }}
+  labels:
+    app: {{ template "jira-software.name" . }}
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    project: ede
+spec:
+  groups:
+    - name: Pod down
+      rules:
+        - alert: {{ template "name" . }} Pod Down
+          annotations:
+            message: Deployment {{ template "jira-software.name" . }} spec.replicas does not equal to status.replicas.
+          expr: sum(kube_replicaset_status_ready_replicas{namespace="{{ .Release.Namespace }}",replicaset=~"^{{ template "jira-software.fullname" . }}-[a-zA-Z0-9]+$"})  /
+            sum(kube_deployment_spec_replicas{namespace="{{ .Release.Namespace }}", deployment="{{ template "jira-software.fullname" . }}"} ) == 1
+          for: 1s
+          labels:
+            severity: error
+            namespace: {{ .Release.Namespace }}
+            service: {{ template "name" . }}
+{{- end }}
